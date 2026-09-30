@@ -61,6 +61,14 @@ jobs:
           snyk container test developer-service:"${GITHUB_SHA}" \
             --file=Dockerfile \
             --severity-threshold=high  
+            --json-file-output=snyk-container.json
+      
+      - name: Show container vulnerability report
+        if: failure()
+        run: |
+          if [ -f snyk-container.json ]; then
+            cat snyk-container.json
+          fi      
 
       - name: Start container
         run: |
