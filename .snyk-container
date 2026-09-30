@@ -1,0 +1,34 @@
+version: v1.25.0
+
+ignore:
+  SNYK-DEBIAN13-ATTR-17678182:
+    - '*':
+        reason: >-
+          Owner Kumar. Temporary exception for isolated learning lab.
+          Debian 13 base-image finding with no fixed version reported.
+          Runtime uses non-root user, read-only root filesystem and
+          dropped capabilities. Exploitability not conclusively excluded.
+          Review before AWS deployment or expiry; not production approval.
+        expires: '2026-10-07T00:00:00.000Z'
+
+  SNYK-DEBIAN13-ACL-17677866:
+    - '*':
+        reason: >-
+          Owner Kumar. Temporary exception for isolated learning lab.
+          No fixed Debian 13 package currently reported.
+          API does not intentionally perform privileged ACL operations.
+          Non-root runtime reduces exposure; issue is not remediated.
+          Review before AWS deployment or expiry; not production approval.
+        expires: '2026-10-07T00:00:00.000Z'
+
+  SNYK-DEBIAN13-ZLIB-19520500:
+    - '*':
+        reason: >-
+          Owner Kumar. Temporary exception for isolated learning lab.
+          No fixed Debian 13 package currently reported.
+          Sample API does not explicitly perform gzip write operations,
+          but transitive reachability has not been conclusively excluded.
+          Review before AWS deployment or expiry; not production approval.
+        expires: '2026-10-07T00:00:00.000Z'
+
+patch: {}
