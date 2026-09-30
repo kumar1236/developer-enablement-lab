@@ -32,9 +32,35 @@ jobs:
 
       - name: Run tests
         run: python -m pytest -v
-        
+
       - name: Build container image
         run: docker build -t developer-service:${{ github.sha }} .
+
+      - name: Install Snyk CLI
+        uses: snyk/actions/setup@master
+
+      - name: Check Python dependencies
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        run: |
+          snyk test \
+            --file=requirements.txt \
+            --package-manager=pip \
+            --command=python \
+            --severity-threshold=high
+
+      - name: Check application source code
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        run: snyk code test --severity-threshold=high
+
+      - name: Check container vulnerabilities
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        run: |
+          snyk container test developer-service:"${GITHUB_SHA}" \
+            --file=Dockerfile \
+            --severity-threshold=high  
 
       - name: Start container
         run: |
