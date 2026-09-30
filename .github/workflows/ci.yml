@@ -34,7 +34,7 @@ jobs:
         run: python -m pytest -v
 
       - name: Build container image
-        run: docker build -t developer-service:${{ github.sha }} .
+        run: docker build --pull -t developer-service:${{ github.sha }} .
 
       - name: Install Snyk CLI
         uses: snyk/actions/setup@master
