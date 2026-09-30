@@ -54,6 +54,22 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         run: snyk code test --severity-threshold=high
 
+      - name: Verify container scan policy
+        run: |
+          echo "Commit: ${GITHUB_SHA}"
+          echo "Docker base:"
+          head -n 1 Dockerfile
+
+          echo "Policy file:"
+          test -f .snyk-container
+          cat .snyk-container
+
+          echo "Snyk CLI version:"
+          snyk --version
+
+          echo "Parsed policy:"
+          snyk policy .snyk-container
+
       - name: Check container vulnerabilities
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
