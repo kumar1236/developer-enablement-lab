@@ -2,8 +2,9 @@ variable "app_image" {
   description = "Exact container image to deploy, identified by digest"
   type        = string
 
-  default = "115278085846.dkr.ecr.ap-south-1.amazonaws.com/developer-service@sha256:49d12180d808132415edc2d06b0d7f0fa655820fe1c4555df84da85b65694063"
+  default = "115278085846.dkr.ecr.ap-south-1.amazonaws.com/developer-service@sha256:ef46f217e4d51e49a63baa20f27f0a5ff9231055310f560f468f11e17ea14772"
 }
+
 
 variable "execution_role_arn" {
   description = "Existing ECS task execution role"
@@ -23,4 +24,9 @@ variable "allowed_client_cidr" {
     )
     error_message = "Use one public IPv4 address with /32."
   }
+}
+
+variable "newrelic_headers_secret_arn" {
+  description = "Secrets Manager ARN containing OTLP authentication headers"
+  type        = string
 }

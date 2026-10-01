@@ -52,6 +52,41 @@ resource "aws_ecs_task_definition" "app" {
         {
           name  = "APP_VERSION"
           value = var.app_image
+        },
+        {
+          name  = "APP_ENV"
+          value = "lab"
+        },
+        {
+          name  = "ENABLE_TELEMETRY"
+          value = "true"
+        },
+        {
+          name  = "OTEL_SERVICE_NAME"
+          value = "developer-service"
+        },
+        {
+          name  = "OTEL_TRACES_EXPORTER"
+          value = "otlp"
+        },
+        {
+          name  = "OTEL_EXPORTER_OTLP_ENDPOINT"
+          value = "https://otlp.nr-data.net"
+        },
+        {
+          name  = "OTEL_EXPORTER_OTLP_PROTOCOL"
+          value = "http/protobuf"
+        },
+        {
+          name  = "OTEL_BSP_MAX_EXPORT_BATCH_SIZE"
+          value = "128"
+        }
+      ]
+
+      secrets = [
+        {
+          name      = "OTEL_EXPORTER_OTLP_HEADERS"
+          valueFrom = var.newrelic_headers_secret_arn
         }
       ]
 
@@ -87,7 +122,7 @@ resource "aws_ecs_service" "app" {
   task_definition = aws_ecs_task_definition.app.arn
 
   launch_type   = "FARGATE"
-  desired_count = 0
+  desired_count = 1
 
   deployment_minimum_healthy_percent = 100
   deployment_maximum_percent         = 200
