@@ -31,4 +31,14 @@ ignore:
           Review before AWS deployment or expiry; not production approval.
         expires: '2026-10-07T00:00:00.000Z'
 
+  SNYK-DEBIAN13-GCC14-20335537:
+    - '*':
+        reason: >-
+          Owner Kumar. Temporary exception for isolated learning lab.
+          No fixed Debian 13 package currently reported.
+          Sample API does not explicitly perform gzip write operations,
+          but transitive reachability has not been conclusively excluded.
+          Review before AWS deployment or expiry; not production approval.
+        expires: '2026-10-07T00:00:00.000Z'
+
 patch: {}
