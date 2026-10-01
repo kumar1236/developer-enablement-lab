@@ -1,2 +1,6 @@
 Flask
 waitress
+opentelemetry-api
+opentelemetry-sdk
+opentelemetry-instrumentation-flask
+opentelemetry-exporter-otlp-proto-http
